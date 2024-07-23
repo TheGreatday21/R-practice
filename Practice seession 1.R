@@ -95,11 +95,11 @@ boxplot_gg <function(data,columns){
 }
 boxplot_gg(data, c("carat",))
 
-
+##not completed 
 #####Removing the outliers----
 remove_outliers <- function(entered_data,columns){
   for (column in columns){
-  quantiles <- quantile(entered_data[[column]], probs = c(0.25, 0.75))
+  quantiles <- quantile(entered_data[[column]], probs = c(0.25, 0.75)) 
   iqr_feature <- quantiles[2]- quantiles[1]
   upper_boundary <- quantiles[2] + 1.5*iqr_feature
   lower_boundary <- quantiles[1] - 1.5*iqr_feature
@@ -110,12 +110,132 @@ remove_outliers <- function(entered_data,columns){
 cleaned_data <- remove_outliers(data, c('carat','depth','price','x','y'))
 
 ##Plotting the cleaned data set----
-numeric_data_2 <- cleaned_data %>% select_if(is.numeric) #A quick way to grab all the numeric variables in one sweep for cleaning
-par(mfrow = c(ceiling(sqrt(ncol(numeric_data))), ceiling(sqrt(ncol(numeric_data)))))
+numeric_data_2 <- cleaned_data %>% select_if(is.numeric) #selecting the numeric variables form our cleaned data set
+par(mfrow = c(ceiling(sqrt(ncol(numeric_data_2))), ceiling(sqrt(ncol(numeric_data_2)))))
 #a ceiling number is the greatest integer of a given float while the floor number is the least integer of a float
-for (i in  1:ncol(numeric_data)){
-  boxplot(numeric_data[,i], main = colnames(numeric_data)[i])
+for (i in  1:ncol(numeric_data_2)){
+  boxplot(numeric_data_2[,i], main = colnames(numeric_data_2)[i])
 }
-#Relationships----
 
-##cat and cat ----
+
+
+
+
+
+
+
+
+
+
+
+
+########Relationships. #correlation and convention----
+##Between two continous
+###using a coorelation matrix or scatter plots
+## Between continous and categorical - use boxplots and anova test
+##cat and cat (use bar plots , contingency tests ,phi square test )
+##means(cont) use the shapiro will test 
+
+
+###Between a continous and a categorical----
+#our target variable is PRICE of diamonds- it is a continous variable 
+categorical_variable <- cleaned_data %>% select_if(is.character)
+view(categorical_variable)
+str(categorical_variable)
+#now we perform the anova test by creating a function
+perform_anova <- function(data, cont_var , cat_vars){
+  for (cat_var in cat_vars){
+  anova_result  = aov(as.formula(paste(cont_var , '~' , cat_var )) , data = data)
+  summary_anova <- summary(anova_result)
+  p_value <- summary_anova [[1]]["Pr(>F)"][1, ]
+  
+  if (p_value <= 0.05){
+    cat("Significant relationship found between ",cont_var , "and " , cat_var,"with a p value ",p_value)
+    }
+  
+  else {
+    cat("No significant relationship found between",cont_var,"and",cat_var, "with a p value", p_value)
+  }
+
+}
+
+}
+
+perform_anova (cleaned_data , 'price', c('cut','colour','clarity','P','PC'))
+  
+###Between two continous variables ----
+##using the correlation matrix
+correlation_matrix <- cor(numeric_data) 
+correlation_matrix 
+##using pairs
+pairs(cleaned_data[,c('x','y','carat','price','depth')])
+##using correlation plot(i like this one for real)
+corrplot(correlation_matrix, method = "circle")
+#we drop depth cause it had only 3percent (0.03) correlation to pricesince price is our target variable
+
+###Between two categoricals----
+view(cleaned_data)
+perform_chisq <-function(data,cat_var_1,cat_data){
+  for (cat_var_2 in cat_data) {
+  chisq_result = chisq.test(table(cleaned_data[[cat_var_1]], cleaned_data[[cat_var_2]]))
+  p_value <- chisq_result$p.value 
+    
+  if (p_value <= 0.05){
+    cat("Significant relationship found between",cat_var_1 ,"and", cat_var_2)
+    }
+  else {
+    cat("Significant relationship not found between", cat_var_1 ,"and",cat_var_2)
+    }
+  }
+}
+  
+perform_chisq(cleaned_data,'colour',c('cut','clarity','P','PC'))
+#for the machine learning model we remove the data with little to no correlation in this case depth
+
+
+#####Creating the machine learning data ----
+ml_data <-cleaned_data[,!names(cleaned_data) %in% c("depth","P","PC")]
+head(ml_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
