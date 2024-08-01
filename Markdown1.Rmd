@@ -1,0 +1,23 @@
+---
+title: "Rmarkdown tutorial"
+author: "keks the great"
+date: "2024-07-31"
+output: html_document
+---
+
+# **Learning the ways of R**
+## ***The R markdown***
+### *By Kaizzi Elijah*
+
+My name is Kawooma ELIJAH the greatest Data scientist on planet earth 
+
+**You can hyper link in markdown**
+[This link leads to google ](https :// www.google.com)
+
+
+
+
+
+
+
+

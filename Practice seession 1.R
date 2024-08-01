@@ -42,6 +42,7 @@ missing_values_3
 data2 <-na.omit(data)
 
 #method2(imputation with either mean,median or mode) ----
+#This visualises the data to easily see 
 par(mfrow = c(2,1))## Helps get them all onto one page
 hist(data$price, col = "blue", main = "Histogram for price")
 
