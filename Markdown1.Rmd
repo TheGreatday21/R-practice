@@ -2,7 +2,10 @@
 title: "Rmarkdown tutorial"
 author: "keks the great"
 date: "2024-07-31"
-output: html_document
+output: 
+  html_document: 
+    highlight: espresso
+    toc: true
 ---
 
 # **Learning the ways of R**
@@ -12,8 +15,22 @@ output: html_document
 My name is Kawooma ELIJAH the greatest Data scientist on planet earth 
 
 **You can hyper link in markdown**
-[This link leads to google ](https :// www.google.com)
+[This link leads to google ](https://www.google.com/)
 
+```{r}
+#this is now a comment since its in the r code section
+#when you knit the markdown all the code is executed and run 
+data1 <- cars
+data1
+```
+
+
+(lol italic)*Here lies my next chunk of code ... using plots* 
+(italic bold)***starting with the gg `plot`***
+```{r}
+plot(data1$speed ~ data1$dist)
+
+```
 
 
 

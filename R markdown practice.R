@@ -13,3 +13,10 @@ install.packages("knitr")
   #both .. its # ***Bold italic***
 
 #You can also add links to your markdown
+
+##to tell the markdown your inserting anr code...we use `` quotes 
+##eg the word plot is now code to markdown `plot`
+#for r we type in
+#```{r}``` were the `` are opening and closing tags type shi
+#in plotting this ~ refers to against. 
+#plot(data1$speed ~ data1$dist)
