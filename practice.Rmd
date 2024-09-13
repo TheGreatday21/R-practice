@@ -1,0 +1,108 @@
+---
+title: "practicing everything literally"
+author: "keks the great"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+**This is my practice space for R , iam going to go through all the various topics and subtopicsin r as quick as i can here**
+## Data analysis
+```{r}
+##call the libraries to be used
+library(readxl)
+library(dplyr)
+library(Hmisc)
+```
+## **Setting directories and calling the data set**
+```{r}
+#import the data set into r
+# set a working directory----
+setwd("/Users/keksmacbookair/Desktop/course work/Intro to Data science/data sets")
+getwd()
+##call the data set
+data <- read_excel("/Users/keksmacbookair/Desktop/course work/Intro to Data science/data sets/Bike_Sales.xlsx")
+##we've renamed the data set as data
+```
+
+## The observation of the data
+```{r}
+# viewing rows of data set and getting a summary of the data----
+head(data, n=5)#gives first rows
+str(data)#shows what each variable is
+tail(data)#gives last rows
+dim(data)#gives number of rows and columns
+names(data)#gives column names
+glimpse(data)#shows the structure of the data set..gives examples of values and data type
+#summary(data)#summarizes the entire data set with means, medians, iq ranges
+```
+
+## Descriptive statistics
+```{r}
+## getting all the countries in the  dat set
+#data$Country
+#length(data$Country)#there are 113036 countries
+#for a continuous variable we are to get the mean median and range
+mean(data$Customer_Age)
+median(data$Customer_Age)
+range(data$Customer_Age)
+##filtering out specific values(all males from the united states older than 20 years of age)
+mans = filter(data,data$Country == "United States",data$Customer_Gender =="M",data$Customer_Age >= 20)
+mans
+
+```
+
+##**Data cleaning**
+```{r}
+sum(is.na(data))
+#this data set has no missing data
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##**Checking for outliers**
+```{r}
+
+
+
+
+
+
+
+
+
+
+```
+
+## ** Data visualization of the cleaned data
+```{r}
+ggplot(data, aes(y = Order_Quantity,x = Unit_Price)) + geom_point()+ geom_smooth(method=lm)
+
+
+
+
+```
+
+
+
+

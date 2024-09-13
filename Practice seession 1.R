@@ -1,6 +1,6 @@
 #The "----" make the ide list the information 
 #pre processing ----
-##Loading packages and librabries ----
+##Loading packages and libraries ----
 install.packages("randomForest")
 install.packages("xgboost")
 library(tidyverse)
@@ -16,13 +16,16 @@ setwd("/Users/keksmacbookair/Desktop/course works/R Programming/Practice R with 
 data <-read.csv("pricingofDiamonds.csv")
 #review few rows of the data ----
 view (data)
-head(data)
+head(data,n=10)#to see the first 10 rows
 #view the structure of the data set----
 str(data)#has ints ,chars and nums
 #summary statistics
 summary(data)#at this point we can use statistics to already tell if the data has outliers
 
 ##Handling missing values----
+#check for missing data
+sum(is.na(data))
+#has no missing data
 #approach one:----
 missing_values <-sapply(data, function(x) sum(is.na(x)))#using a missing value function
 missing_values
