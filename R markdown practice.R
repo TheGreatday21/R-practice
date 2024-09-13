@@ -14,7 +14,7 @@ install.packages("knitr")
 
 #You can also add links to your markdown
 
-##to tell the markdown your inserting anr code...we use `` quotes 
+##to tell the markdown your inserting  code...we use `` quotes 
 ##eg the word plot is now code to markdown `plot`
 #for r we type in
 #```{r}``` were the `` are opening and closing tags type shi
